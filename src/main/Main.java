@@ -16,12 +16,13 @@ import views.view_perbandinganalternatif;
 import views.view_perbandingankriteria;
 import views.view_prosesahp;
 
-
 /**
  *
  * @author USER
  */
 public class Main extends javax.swing.JFrame {
+
+    private JPanel menuAktif = null;
 
     /**
      * Creates new form mani
@@ -34,8 +35,28 @@ public class Main extends javax.swing.JFrame {
         p.setBackground(new Color(33, 48, 66));
     }
 
-    public void resetColor(JPanel p1) {
-        p1.setBackground(new Color(52, 73, 94));
+    public void resetColor(JPanel p) {
+        p.setBackground(new Color(52, 73, 94));
+    }
+
+    private void setMenuAktif(JPanel panelBaru) {
+
+        // Jika panel yang diklik sudah aktif,
+        // matikan kembali.
+        if (menuAktif == panelBaru) {
+            resetColor(menuAktif);
+            menuAktif = null;
+            return;
+        }
+
+        // Kembalikan panel lama ke default
+        if (menuAktif != null) {
+            resetColor(menuAktif);
+        }
+
+        // Aktifkan panel baru
+        menuAktif = panelBaru;
+        setColor(menuAktif);
     }
 
     /**
@@ -88,14 +109,6 @@ public class Main extends javax.swing.JFrame {
         pnSidebar.setBackground(new java.awt.Color(52, 73, 94));
 
         sb_dashboard.setBackground(new java.awt.Color(52, 73, 94));
-        sb_dashboard.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                sb_dashboardMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                sb_dashboardMouseExited(evt);
-            }
-        });
 
         dashboard.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         dashboard.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,6 +116,12 @@ public class Main extends javax.swing.JFrame {
         dashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dashboardMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dashboardMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dashboardMouseExited(evt);
             }
         });
 
@@ -474,7 +493,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-verified-account-25.png"))); // NOI18N
-        jLabel2.setText("user");
+        jLabel2.setText("Pengguna");
 
         btnLogout.setBackground(new java.awt.Color(52, 73, 94));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -490,9 +509,9 @@ public class Main extends javax.swing.JFrame {
             .addGroup(pnHeaderLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 692, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btnLogout)
                 .addGap(30, 30, 30))
         );
@@ -506,6 +525,8 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(btnLogout))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
+
+        jLabel2.getAccessibleContext().setAccessibleName("Pengguna");
 
         pnContent.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -554,76 +575,100 @@ public class Main extends javax.swing.JFrame {
         pnDasar.revalidate();
     }//GEN-LAST:event_formWindowOpened
 
-    private void sb_dashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sb_dashboardMouseEntered
-        setColor(sb_dashboard);
-    }//GEN-LAST:event_sb_dashboardMouseEntered
-
-    private void sb_dashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sb_dashboardMouseExited
-        resetColor(sb_dashboard);
-    }//GEN-LAST:event_sb_dashboardMouseExited
-
     private void dataauditorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataauditorMouseEntered
-        setColor(sb_dataauditor);        // TODO add your handling code here:
+        if (menuAktif != sb_dataauditor) {
+            setColor(sb_dataauditor);
+        }
     }//GEN-LAST:event_dataauditorMouseEntered
 
     private void dataauditorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataauditorMouseExited
-        resetColor(sb_dataauditor);        // TODO add your handling code here:
+        if (menuAktif != sb_dataauditor) {
+            resetColor(sb_dataauditor);
+        }
     }//GEN-LAST:event_dataauditorMouseExited
 
     private void datakriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datakriteriaMouseEntered
-        setColor(sb_datakriteria);        // TODO add your handling code here:
+        if (menuAktif != sb_datakriteria) {
+            setColor(sb_datakriteria);
+        }
     }//GEN-LAST:event_datakriteriaMouseEntered
 
     private void datakriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datakriteriaMouseExited
-        resetColor(sb_datakriteria);
+        if (menuAktif != sb_datakriteria) {
+            resetColor(sb_datakriteria);
+        }
     }//GEN-LAST:event_datakriteriaMouseExited
 
     private void perbandingankriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandingankriteriaMouseEntered
-        setColor(sb_perbandingankrtieria);
+        if (menuAktif != sb_perbandingankrtieria) {
+            setColor(sb_perbandingankrtieria);
+        }
     }//GEN-LAST:event_perbandingankriteriaMouseEntered
 
     private void perbandingankriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandingankriteriaMouseExited
-        resetColor(sb_perbandingankrtieria);
+        if (menuAktif != sb_perbandingankrtieria) {
+            resetColor(sb_perbandingankrtieria);
+        }
     }//GEN-LAST:event_perbandingankriteriaMouseExited
 
     private void perbandinganalternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandinganalternatifMouseEntered
-        setColor(sb_perbandinganalternatif);
+        if (menuAktif != sb_perbandinganalternatif) {
+            setColor(sb_perbandinganalternatif);
+        }
     }//GEN-LAST:event_perbandinganalternatifMouseEntered
 
     private void perbandinganalternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandinganalternatifMouseExited
-        resetColor(sb_perbandinganalternatif);
+        if (menuAktif != sb_perbandinganalternatif) {
+            resetColor(sb_perbandinganalternatif);
+        }
     }//GEN-LAST:event_perbandinganalternatifMouseExited
 
     private void prosesahpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesahpMouseEntered
-        setColor(sb_prosesahp);
+        if (menuAktif != sb_prosesahp) {
+            setColor(sb_prosesahp);
+        }
     }//GEN-LAST:event_prosesahpMouseEntered
 
     private void prosesahpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesahpMouseExited
-        resetColor(sb_prosesahp);
+        if (menuAktif != sb_prosesahp) {
+            resetColor(sb_prosesahp);
+        }
     }//GEN-LAST:event_prosesahpMouseExited
 
     private void hasilrangkingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hasilrangkingMouseEntered
-        setColor(sb_hasilrangking);
+        if (menuAktif != sb_hasilrangking) {
+            setColor(sb_hasilrangking);
+        }
     }//GEN-LAST:event_hasilrangkingMouseEntered
 
     private void hasilrangkingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hasilrangkingMouseExited
-        resetColor(sb_hasilrangking);
+        if (menuAktif != sb_hasilrangking) {
+            resetColor(sb_hasilrangking);
+        }
     }//GEN-LAST:event_hasilrangkingMouseExited
 
     private void laporanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanMouseEntered
-        setColor(sb_laporan);
+        if (menuAktif != sb_laporan) {
+            setColor(sb_laporan);
+        }
     }//GEN-LAST:event_laporanMouseEntered
 
     private void laporanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanMouseExited
-        resetColor(sb_laporan);
+        if (menuAktif != sb_laporan) {
+            resetColor(sb_laporan);
+        }
     }//GEN-LAST:event_laporanMouseExited
 
     private void pengaturanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pengaturanMouseEntered
-        setColor(sb_pengaturan);
+        if (menuAktif != sb_pengaturan) {
+            setColor(sb_pengaturan);
+        }
     }//GEN-LAST:event_pengaturanMouseEntered
 
     private void pengaturanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pengaturanMouseExited
-        resetColor(sb_pengaturan);
+        if (menuAktif != sb_pengaturan) {
+            resetColor(sb_pengaturan);
+        }
     }//GEN-LAST:event_pengaturanMouseExited
 
     private void dashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardMouseClicked
@@ -631,6 +676,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_dashboard());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_dashboard);
     }//GEN-LAST:event_dashboardMouseClicked
 
     private void dataauditorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataauditorMouseClicked
@@ -638,6 +684,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_dataauditor());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_dataauditor);
     }//GEN-LAST:event_dataauditorMouseClicked
 
     private void datakriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datakriteriaMouseClicked
@@ -645,6 +692,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_datakriteria());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_datakriteria);
     }//GEN-LAST:event_datakriteriaMouseClicked
 
     private void perbandingankriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandingankriteriaMouseClicked
@@ -652,6 +700,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_perbandingankriteria());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_perbandingankrtieria);
     }//GEN-LAST:event_perbandingankriteriaMouseClicked
 
     private void perbandinganalternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_perbandinganalternatifMouseClicked
@@ -659,6 +708,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_perbandinganalternatif());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_perbandinganalternatif);
     }//GEN-LAST:event_perbandinganalternatifMouseClicked
 
     private void prosesahpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prosesahpMouseClicked
@@ -666,6 +716,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_prosesahp());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_prosesahp);
     }//GEN-LAST:event_prosesahpMouseClicked
 
     private void hasilrangkingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hasilrangkingMouseClicked
@@ -673,6 +724,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_hasilrangking());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_hasilrangking);
     }//GEN-LAST:event_hasilrangkingMouseClicked
 
     private void laporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_laporanMouseClicked
@@ -680,6 +732,7 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_laporan());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_laporan);
     }//GEN-LAST:event_laporanMouseClicked
 
     private void pengaturanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pengaturanMouseClicked
@@ -687,7 +740,20 @@ public class Main extends javax.swing.JFrame {
         pnDasar.add(new view_pengaturan());
         pnDasar.repaint();
         pnDasar.revalidate();
+        setMenuAktif(sb_pengaturan);
     }//GEN-LAST:event_pengaturanMouseClicked
+
+    private void dashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardMouseEntered
+        if (menuAktif != sb_dashboard) {
+            setColor(sb_dashboard);
+        }
+    }//GEN-LAST:event_dashboardMouseEntered
+
+    private void dashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardMouseExited
+        if (menuAktif != sb_dashboard) {
+            resetColor(sb_dashboard);
+        }
+    }//GEN-LAST:event_dashboardMouseExited
 
     /**
      * @param args the command line arguments
