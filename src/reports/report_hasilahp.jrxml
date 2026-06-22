@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca45f457-478f-4d06-9b55-45814679f024">
 	<property name="ireport.zoom" value="1.9487171000000014"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="10"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT k.kode_kriteria, k.nama_kriteria,
-                   h.bobot_prioritas, h.lambda_maks,
-                   h.consistency_index, h.consistency_ratio,
-                   h.keterangan_cr, h.tanggal_hitung
-            FROM hasil_ahp h
-            JOIN kriteria k ON h.id_kriteria = k.id_kriteria
-            ORDER BY h.bobot_prioritas DESC]]>
+		<![CDATA[]]>
 	</queryString>
 	<field name="kode_kriteria" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -105,7 +99,7 @@
 				<text><![CDATA[Lambda]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="395" y="63" width="55" height="30" backcolor="#CCCCCC" uuid="d9129847-4c7b-4d01-9ee4-a77282134d14"/>
+				<reportElement mode="Opaque" x="395" y="63" width="82" height="30" backcolor="#CCCCCC" uuid="d9129847-4c7b-4d01-9ee4-a77282134d14"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
@@ -145,17 +139,7 @@
 				<text><![CDATA[Kode]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="505" y="63" width="50" height="30" backcolor="#CCCCCC" uuid="0b3a2f67-91b5-4072-9b1a-c75a089cea39"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Ket.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="450" y="63" width="55" height="30" backcolor="#CCCCCC" uuid="3bc7c8eb-3796-4101-a2d3-65a3c7771662"/>
+				<reportElement mode="Opaque" x="477" y="63" width="77" height="30" backcolor="#CCCCCC" uuid="3bc7c8eb-3796-4101-a2d3-65a3c7771662"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
@@ -178,76 +162,6 @@
 	</columnHeader>
 	<detail>
 		<band height="25" splitType="Stretch">
-			<textField pattern="0.0000">
-				<reportElement x="315" y="0" width="80" height="25" uuid="be9f3cef-35bc-4028-a53e-ded1f4436a68"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{lambda_maks}]]></textFieldExpression>
-			</textField>
-			<textField pattern="0.0000">
-				<reportElement x="395" y="0" width="55" height="25" uuid="a4afc66b-4667-4910-9b78-0cd8b2b38a8b"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{consistency_index}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="505" y="0" width="50" height="25" uuid="b0268e79-ddce-44b7-88ad-b861ba33bf09"/>
-				<box leftPadding="3">
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{keterangan_cr}]]></textFieldExpression>
-			</textField>
-			<textField pattern="0.0000">
-				<reportElement x="450" y="0" width="55" height="25" uuid="c6e25956-44ea-4713-8860-79d249562e05"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{consistency_ratio}]]></textFieldExpression>
-			</textField>
-			<textField pattern="0.0000">
-				<reportElement x="230" y="0" width="85" height="25" uuid="8f0fb9bc-cd4d-4506-b533-228cccbdad26"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{bobot_prioritas}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="100" y="0" width="130" height="25" uuid="6726e6fa-ae87-48a9-9bd6-88d90cb5a190"/>
-				<box leftPadding="5">
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nama_kriteria}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="35" y="0" width="65" height="25" uuid="b286c2d2-b923-4944-88d3-e668b89a3006"/>
-				<box leftPadding="5">
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{kode_kriteria}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="35" height="25" uuid="e3e8dff7-e633-4194-90c0-f317f34521cf"/>
 				<box>
