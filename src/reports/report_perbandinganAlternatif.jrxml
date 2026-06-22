@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_perbandingan_alternatif" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca45f457-478f-4d06-9b55-45814679f024">
 	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="327"/>
+	<property name="ireport.y" value="128"/>
 	<parameter name="col1_header" class="java.lang.String"/>
 	<parameter name="col2_header" class="java.lang.String"/>
 	<parameter name="col3_header" class="java.lang.String"/>
@@ -48,14 +48,14 @@
 	<pageHeader>
 		<band height="55" splitType="Stretch">
 			<textField>
-				<reportElement x="437" y="15" width="114" height="20" uuid="3364fd99-90d8-436c-a685-05356af56583"/>
+				<reportElement x="437" y="8" width="114" height="20" uuid="3364fd99-90d8-436c-a685-05356af56583"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd MMMM yyyy", new java.util.Locale("id", "ID")).format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="364" y="15" width="89" height="20" uuid="f61df396-7bae-406f-b0e0-4a7da0f43e32"/>
+				<reportElement x="364" y="8" width="89" height="20" uuid="f61df396-7bae-406f-b0e0-4a7da0f43e32"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>

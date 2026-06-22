@@ -189,6 +189,8 @@ public class view_pengaturan extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblUser);
 
+        tpassword.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
