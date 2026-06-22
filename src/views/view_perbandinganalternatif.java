@@ -4,17 +4,198 @@
  */
 package views;
 
+import dao.AuditorDAO;
+import dao.KriteriaDAO;
+import dao.PerbandinganDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.Auditor;
+import models.Kriteria;
+import utils.AHPCalculator;
+
 /**
  *
  * @author USER
  */
 public class view_perbandinganalternatif extends javax.swing.JPanel {
 
+    private KriteriaDAO kriteriaDAO;
+    private AuditorDAO auditorDAO;
+    private PerbandinganDAO perbandinganDAO;
+    private List<Kriteria> kriteriaList;
+    private List<Auditor> auditorList;
+
     /**
      * Creates new form view_dashboard
      */
     public view_perbandinganalternatif() {
         initComponents();
+        kriteriaDAO = new KriteriaDAO();
+        auditorDAO = new AuditorDAO();
+        perbandinganDAO = new PerbandinganDAO();
+        loadData();
+        loadNilaiComboBox();
+        addButtonListeners();
+        refreshTabel();
+    }
+
+    private void loadData() {
+        kriteriaList = kriteriaDAO.getAll();
+        auditorList = auditorDAO.getAll();
+
+        // ComboBox Nama Kriteria (pilih kriteria mana yang sedang dibandingkan)
+        tnama.removeAllItems();
+        for (Kriteria k : kriteriaList) {
+            tnama.addItem(k.getKodeKriteria() + " - " + k.getNamaKriteria());
+        }
+
+        // ComboBox Alternatif 1 dan 2
+        tkriteria1.removeAllItems();
+        tkriteria2.removeAllItems();
+        for (Auditor a : auditorList) {
+            tkriteria1.addItem(a.getKodeAuditor() + " - " + a.getNamaAuditor());
+            tkriteria2.addItem(a.getKodeAuditor() + " - " + a.getNamaAuditor());
+        }
+        if (tkriteria2.getItemCount() > 1) {
+            tkriteria2.setSelectedIndex(1);
+        }
+
+        // Listener untuk refresh tabel saat kriteria berubah
+        tnama.addActionListener(e -> refreshTabel());
+    }
+
+    private void loadNilaiComboBox() {
+        tnilai.removeAllItems();
+        tnilai.addItem("1 - Sama Penting");
+        tnilai.addItem("2 - Mendekati Sedikit Lebih Penting");
+        tnilai.addItem("3 - Sedikit Lebih Penting");
+        tnilai.addItem("4 - Mendekati Lebih Penting");
+        tnilai.addItem("5 - Lebih Penting");
+        tnilai.addItem("6 - Mendekati Sangat Penting");
+        tnilai.addItem("7 - Sangat Penting");
+        tnilai.addItem("8 - Mendekati Mutlak Lebih Penting");
+        tnilai.addItem("9 - Mutlak Lebih Penting");
+        tnilai.addItem("1/2 - Mendekati Sama Penting (kebalikan)");
+        tnilai.addItem("1/3 - Sedikit Kurang Penting (kebalikan)");
+        tnilai.addItem("1/4 - Mendekati Kurang Penting (kebalikan)");
+        tnilai.addItem("1/5 - Kurang Penting (kebalikan)");
+        tnilai.addItem("1/6 - Mendekati Sangat Kurang Penting (kebalikan)");
+        tnilai.addItem("1/7 - Sangat Kurang Penting (kebalikan)");
+        tnilai.addItem("1/8 - Mendekati Mutlak Kurang Penting (kebalikan)");
+        tnilai.addItem("1/9 - Mutlak Kurang Penting (kebalikan)");
+    }
+
+    private double parseNilai() {
+        String selected = (String) tnilai.getSelectedItem();
+        if (selected == null) return 1;
+        String angka = selected.split(" - ")[0].trim();
+        if (angka.startsWith("1/")) {
+            int denom = Integer.parseInt(angka.substring(2));
+            return 1.0 / denom;
+        }
+        return Double.parseDouble(angka);
+    }
+
+    private void addButtonListeners() {
+        btnsimpan.addActionListener(e -> simpanPerbandingan());
+        btnubah.addActionListener(e -> simpanPerbandingan());
+        btnhapus.addActionListener(e -> hapusPerbandingan());
+        btnbatal.addActionListener(e -> resetForm());
+    }
+
+    private void simpanPerbandingan() {
+        int idxKriteria = tnama.getSelectedIndex();
+        int idx1 = tkriteria1.getSelectedIndex();
+        int idx2 = tkriteria2.getSelectedIndex();
+
+        if (idxKriteria < 0 || idx1 < 0 || idx2 < 0) return;
+        if (idx1 == idx2) {
+            JOptionPane.showMessageDialog(this, "Alternatif 1 dan Alternatif 2 tidak boleh sama!");
+            return;
+        }
+
+        int idKriteria = kriteriaList.get(idxKriteria).getIdKriteria();
+        int idAuditor1 = auditorList.get(idx1).getIdAuditor();
+        int idAuditor2 = auditorList.get(idx2).getIdAuditor();
+        double nilai = parseNilai();
+
+        boolean ok = perbandinganDAO.simpanPerbandinganAlternatif(idKriteria, idAuditor1, idAuditor2, nilai);
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Perbandingan alternatif berhasil disimpan!");
+            refreshTabel();
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan perbandingan!");
+        }
+    }
+
+    private void hapusPerbandingan() {
+        int idxKriteria = tnama.getSelectedIndex();
+        int idx1 = tkriteria1.getSelectedIndex();
+        int idx2 = tkriteria2.getSelectedIndex();
+        if (idxKriteria < 0 || idx1 < 0 || idx2 < 0 || idx1 == idx2) return;
+
+        int idKriteria = kriteriaList.get(idxKriteria).getIdKriteria();
+        int idAuditor1 = auditorList.get(idx1).getIdAuditor();
+        int idAuditor2 = auditorList.get(idx2).getIdAuditor();
+
+        boolean ok = perbandinganDAO.hapusPerbandinganAlternatif(idKriteria, idAuditor1, idAuditor2);
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Perbandingan berhasil dihapus!");
+            refreshTabel();
+        }
+    }
+
+    private void resetForm() {
+        if (tkriteria1.getItemCount() > 0) tkriteria1.setSelectedIndex(0);
+        if (tkriteria2.getItemCount() > 1) tkriteria2.setSelectedIndex(1);
+        if (tnilai.getItemCount() > 0) tnilai.setSelectedIndex(0);
+    }
+
+    private void refreshTabel() {
+        int idxKriteria = tnama.getSelectedIndex();
+        if (idxKriteria < 0 || auditorList == null || auditorList.isEmpty()) return;
+
+        int idKriteria = kriteriaList.get(idxKriteria).getIdKriteria();
+        int n = auditorList.size();
+        double[][] matriks = perbandinganDAO.buildMatriksAlternatif(idKriteria, auditorList);
+
+        // Tabel matriks perbandingan
+        String[] header = new String[n + 1];
+        header[0] = "Alternatif";
+        for (int i = 0; i < n; i++) {
+            header[i + 1] = auditorList.get(i).getKodeAuditor();
+        }
+
+        Object[][] dataMatriks = new Object[n][n + 1];
+        for (int i = 0; i < n; i++) {
+            dataMatriks[i][0] = auditorList.get(i).getKodeAuditor();
+            for (int j = 0; j < n; j++) {
+                dataMatriks[i][j + 1] = String.format("%.3f", matriks[i][j]);
+            }
+        }
+        tblmatriksperbandinganalternatif.setModel(new DefaultTableModel(dataMatriks, header));
+
+        // Tabel normalisasi + bobot
+        double[][] normalized = AHPCalculator.normalisasi(matriks);
+        double[] bobot = AHPCalculator.hitungBobotPrioritas(matriks);
+
+        String[] headerNorm = new String[n + 2];
+        headerNorm[0] = "Alternatif";
+        for (int i = 0; i < n; i++) {
+            headerNorm[i + 1] = auditorList.get(i).getKodeAuditor();
+        }
+        headerNorm[n + 1] = "Bobot";
+
+        Object[][] dataNorm = new Object[n][n + 2];
+        for (int i = 0; i < n; i++) {
+            dataNorm[i][0] = auditorList.get(i).getKodeAuditor();
+            for (int j = 0; j < n; j++) {
+                dataNorm[i][j + 1] = String.format("%.3f", normalized[i][j]);
+            }
+            dataNorm[i][n + 1] = String.format("%.3f", bobot[i]);
+        }
+        tblnormalisasialternatif.setModel(new DefaultTableModel(dataNorm, headerNorm));
     }
 
     /**
@@ -53,13 +234,13 @@ public class view_perbandinganalternatif extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Perbandingan Kriteria");
+        jLabel1.setText("Perbandingan Alternatif");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jLabel3.setText("Kriteria 1");
+        jLabel3.setText("Alternatif 1");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jLabel4.setText("Kriteria 2");
+        jLabel4.setText("Alternatif 2");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel5.setText("Nilai");
@@ -83,7 +264,7 @@ public class view_perbandinganalternatif extends javax.swing.JPanel {
         btnbatal.setText("Batal");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jLabel6.setText("Nama");
+        jLabel6.setText("Kriteria");
 
         tnama.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
 
