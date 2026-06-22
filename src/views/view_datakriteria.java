@@ -4,17 +4,86 @@
  */
 package views;
 
+import dao.KriteriaDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class view_datakriteria extends javax.swing.JPanel {
 
+    private int idKriteriaTerpilih = -1;
+
     /**
      * Creates new form view_dashboard
      */
     public view_datakriteria() {
         initComponents();
+        LoadTableKriteria();
+        generateKodeKriteria();
+        tkode.disable();
+    }
+
+    private void LoadTableKriteria() {
+
+        DefaultTableModel model
+                = new DefaultTableModel();
+
+        model.addColumn("ID");
+        model.addColumn("Kode");
+        model.addColumn("Nama");
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        for (models.Kriteria t : dao.getAll()) {
+
+            model.addRow(new Object[]{
+                t.getIdKriteria(),
+                t.getKodeKriteria(),
+                t.getNamaKriteria(),});
+        }
+
+        tblkriteria.setModel(model);
+    }
+
+    private void generateKodeKriteria() {
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        String kode = dao.generateKode();
+
+        tkode.setText(kode);
+    }
+
+    private void cariKriteria(String keyword) {
+
+        DefaultTableModel model
+                = new DefaultTableModel();
+
+        model.addColumn("ID");
+        model.addColumn("Kode");
+        model.addColumn("Nama");
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        for (models.Kriteria t : dao.search(keyword)) {
+
+            model.addRow(new Object[]{
+                t.getIdKriteria(),
+                t.getKodeKriteria(),
+                t.getNamaKriteria(),});
+        }
+
+        tblkriteria.setModel(model);
+    }
+
+    private void resetForm() {
+
+        tkode.setText("");
+        tnama.setText("");
+        tkode.requestFocus();
     }
 
     /**
@@ -26,19 +95,364 @@ public class view_datakriteria extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        tcari = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblkriteria = new javax.swing.JTable();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tkode = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tnama = new javax.swing.JTextField();
+        btnsimpan = new javax.swing.JButton();
+        btnubah = new javax.swing.JButton();
+        btnhapus = new javax.swing.JButton();
+        btnbatal = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Data Kriteria");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("Cari");
+
+        tcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tcariKeyPressed(evt);
+            }
+        });
+
+        tblkriteria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblkriteria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblkriteriaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblkriteria);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Form Data Auditor");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel4.setText("Kode");
+
+        tkode.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        jLabel5.setText("Nama");
+
+        tnama.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+
+        btnsimpan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnsimpan.setText("Simpan");
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
+            }
+        });
+
+        btnubah.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnubah.setText("Ubah");
+        btnubah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnubahActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnhapus.setText("Hapus");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        btnbatal.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnbatal.setText("Batal");
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jSeparator1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(487, 487, 487)
+                                .addComponent(jLabel1))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(95, 95, 95)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tkode)
+                                        .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(btnsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnubah, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tkode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsimpan)
+                    .addComponent(btnubah)
+                    .addComponent(btnhapus)
+                    .addComponent(btnbatal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tcariKeyPressed
+        String keyword
+                = tcari.getText().trim();
+
+        if (keyword.isEmpty()) {
+
+            LoadTableKriteria();
+
+        } else {
+
+            cariKriteria(keyword);
+        }
+    }//GEN-LAST:event_tcariKeyPressed
+
+    private void tblkriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkriteriaMouseClicked
+        int row = tblkriteria.getSelectedRow();
+
+        if (row == -1) {
+            return;
+        }
+
+        String kode = tblkriteria.getValueAt(row, 1).toString();
+        String nama = tblkriteria.getValueAt(row, 1).toString();
+
+        dao.KriteriaDAO dao = new dao.KriteriaDAO();
+        models.Kriteria a = dao.getByKode(kode);
+
+        if (a != null) {
+
+            idKriteriaTerpilih = a.getIdKriteria();
+
+            // Set data ke komponen form Anda
+            tkode.setText(a.getKodeKriteria());
+            tnama.setText(a.getNamaKriteria());
+        }
+
+        btnsimpan.setVisible(false);
+    }//GEN-LAST:event_tblkriteriaMouseClicked
+
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        if (tkode.getText().trim().isEmpty() || tnama.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua data kriteria harus diisi!");
+            return;
+        }
+
+        // 2. Ambil data dari form
+        String kode = tkode.getText().trim();
+        String nama = tnama.getText().trim();
+
+        // 3. Set ke model Kriteria
+        models.Kriteria kriteria = new models.Kriteria();
+        kriteria.setKodeKriteria(kode);
+        kriteria.setNamaKriteria(nama);
+
+        // 4. Eksekusi simpan lewat DAO
+        dao.KriteriaDAO daoKriteria = new dao.KriteriaDAO();
+        boolean berhasil = daoKriteria.insert(kriteria);
+
+        if (berhasil) {
+            JOptionPane.showMessageDialog(this, "Data Kriteria berhasil disimpan!");
+            resetForm(); // Panggil fungsi reset Anda
+            LoadTableKriteria(); // Un-comment jika ada fungsi refresh tabel
+            generateKodeKriteria();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan data Kriteria.");
+        }
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
+
+        resetForm();
+        generateKodeKriteria();
+        btnsimpan.setVisible(true);
+    }//GEN-LAST:event_btnbatalActionPerformed
+
+    private void btnubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnubahActionPerformed
+// 1. Cek apakah ada data yang dipilih dari tabel
+        if (idKriteriaTerpilih == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data kriteria yang ingin diubah dari tabel terlebih dahulu!");
+            return;
+        }
+
+        // 2. Validasi input
+        if (tkode.getText().trim().isEmpty() || tnama.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua data kriteria harus diisi!");
+            return;
+        }
+
+        // 3. Ambil data dari form
+        String kode = tkode.getText().trim();
+        String nama = tnama.getText().trim();
+
+        // 4. Set ke model Kriteria beserta ID-nya
+        models.Kriteria kriteria = new models.Kriteria();
+        kriteria.setIdKriteria(idKriteriaTerpilih); // ID wajib ada untuk klausa WHERE
+        kriteria.setKodeKriteria(kode);
+        kriteria.setNamaKriteria(nama);
+
+        // 5. Eksekusi update lewat DAO
+        dao.KriteriaDAO daoKriteria = new dao.KriteriaDAO();
+        boolean berhasil = daoKriteria.update(kriteria);
+
+        if (berhasil) {
+            JOptionPane.showMessageDialog(this, "Data Kriteria berhasil diperbarui!");
+            idKriteriaTerpilih = -1; // Reset ID
+            resetForm();
+            LoadTableKriteria();
+            generateKodeKriteria();
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui data Kriteria.");
+        }
+    }//GEN-LAST:event_btnubahActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+// 1. Cek apakah ada data yang dipilih dari tabel
+        if (idKriteriaTerpilih == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data kriteria yang ingin dihapus dari tabel terlebih dahulu!");
+            return;
+        }
+
+        // 2. Konfirmasi hapus
+        int konfirmasi = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus kriteria ini?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            // 3. Eksekusi hapus lewat DAO
+            dao.KriteriaDAO daoKriteria = new dao.KriteriaDAO();
+            boolean berhasil = daoKriteria.delete(idKriteriaTerpilih);
+
+            if (berhasil) {
+                JOptionPane.showMessageDialog(this, "Data Kriteria berhasil dihapus!");
+                idKriteriaTerpilih = -1; // Reset ID
+                resetForm();
+                 LoadTableKriteria();
+                 generateKodeKriteria();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data Kriteria.");
+            }
+        }
+    }//GEN-LAST:event_btnhapusActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btnhapus;
+    private javax.swing.JButton btnsimpan;
+    private javax.swing.JButton btnubah;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTable tblkriteria;
+    private javax.swing.JTextField tcari;
+    private javax.swing.JTextField tkode;
+    private javax.swing.JTextField tnama;
     // End of variables declaration//GEN-END:variables
 }

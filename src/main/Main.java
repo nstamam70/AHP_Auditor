@@ -4,6 +4,7 @@
  */
 package main;
 
+import auth.auth_login;
 import java.awt.Color;
 import javax.swing.JPanel;
 import views.view_dashboard;
@@ -29,6 +30,9 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        if (auth_login.userLogin != null) {
+            lpengguna.setText(auth_login.userLogin.getUsername());
+        }
     }
 
     public void setColor(JPanel p) {
@@ -93,7 +97,7 @@ public class Main extends javax.swing.JFrame {
         llainnya1 = new javax.swing.JLabel();
         pnHeader = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lpengguna = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         pnContent = new javax.swing.JPanel();
         pnDasar = new javax.swing.JPanel();
@@ -490,10 +494,10 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SPK Penilaian Kinerja Auditor - Metode AHP");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-verified-account-25.png"))); // NOI18N
-        jLabel2.setText("Pengguna");
+        lpengguna.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lpengguna.setForeground(new java.awt.Color(255, 255, 255));
+        lpengguna.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-verified-account-25.png"))); // NOI18N
+        lpengguna.setText("Pengguna");
 
         btnLogout.setBackground(new java.awt.Color(52, 73, 94));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -510,7 +514,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lpengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(btnLogout)
                 .addGap(30, 30, 30))
@@ -519,14 +523,13 @@ public class Main extends javax.swing.JFrame {
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnHeaderLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(btnLogout))
+                .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lpengguna)
+                    .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(btnLogout)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-
-        jLabel2.getAccessibleContext().setAccessibleName("Pengguna");
 
         pnContent.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -800,12 +803,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel datakriteria;
     private javax.swing.JLabel hasilrangking;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel laporan;
     private javax.swing.JLabel lhasil1;
     private javax.swing.JLabel llainnya1;
     private javax.swing.JLabel lmasterdata1;
     private javax.swing.JLabel lpenentuanahp1;
+    private javax.swing.JLabel lpengguna;
     private javax.swing.JLabel pengaturan;
     private javax.swing.JLabel perbandinganalternatif;
     private javax.swing.JLabel perbandingankriteria;
