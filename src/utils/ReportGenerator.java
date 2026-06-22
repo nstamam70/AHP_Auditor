@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -47,6 +48,33 @@ public class ReportGenerator {
             Map<String, Object> parameters = (params != null) ? params : new HashMap<>();
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+
+            JasperViewer.viewReport(jasperPrint, false);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal membuat laporan: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void showReportWithDataSource(String jrxmlPath, JRDataSource dataSource) {
+        showReportWithDataSource(jrxmlPath, null, dataSource);
+    }
+
+    public static void showReportWithDataSource(String jrxmlPath, Map<String, Object> params, JRDataSource dataSource) {
+        try {
+            InputStream stream = ReportGenerator.class.getResourceAsStream(jrxmlPath);
+
+            if (stream == null) {
+                JOptionPane.showMessageDialog(null, "File report tidak ditemukan: " + jrxmlPath);
+                return;
+            }
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(stream);
+
+            Map<String, Object> parameters = (params != null) ? params : new HashMap<>();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
             JasperViewer.viewReport(jasperPrint, false);
 

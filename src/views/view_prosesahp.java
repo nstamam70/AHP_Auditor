@@ -134,7 +134,7 @@ public class view_prosesahp extends javax.swing.JPanel {
                 data[i][k + 1] = String.format("%.3f", bobotAlternatif[k][i]);
             }
         }
-        jTable2.setModel(new DefaultTableModel(data, header));
+        tablePerbandinganAlternatif.setModel(new DefaultTableModel(data, header));
     }
 
     private void tampilTabelHasilAkhir(double[] nilaiAkhir, int[] rangking) {
@@ -162,7 +162,7 @@ public class view_prosesahp extends javax.swing.JPanel {
 
     private void resetHasil() {
         jTable1.setModel(new DefaultTableModel());
-        jTable2.setModel(new DefaultTableModel());
+        tablePerbandinganAlternatif.setModel(new DefaultTableModel());
         jTable3.setModel(new DefaultTableModel());
         lblCi.setText("CI");
         lblCr.setText("CR");
@@ -192,7 +192,7 @@ public class view_prosesahp extends javax.swing.JPanel {
         lblLambda = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablePerbandinganAlternatif = new javax.swing.JTable();
         lblCi1 = new javax.swing.JTextField();
         lblCr1 = new javax.swing.JTextField();
         lblLambda1 = new javax.swing.JTextField();
@@ -229,22 +229,43 @@ public class view_prosesahp extends javax.swing.JPanel {
         lblCi.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblCi.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblCi.setText("CI");
-        lblCi.setEditable(false);
+        lblCi.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblCiFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblCiFocusLost(evt);
+            }
+        });
 
         lblCr.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblCr.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblCr.setText("CR");
-        lblCr.setEditable(false);
+        lblCr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblCrFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblCrFocusLost(evt);
+            }
+        });
 
         lblLambda.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblLambda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblLambda.setText("Lambda");
-        lblLambda.setEditable(false);
+        lblLambda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblLambdaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblLambdaFocusLost(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel3.setText("Hasil Perbandingan Alternatif");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablePerbandinganAlternatif.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -255,22 +276,43 @@ public class view_prosesahp extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tablePerbandinganAlternatif);
 
         lblCi1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblCi1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblCi1.setText("CI");
-        lblCi1.setEditable(false);
+        lblCi1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblCi1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblCi1FocusLost(evt);
+            }
+        });
 
         lblCr1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblCr1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblCr1.setText("CR");
-        lblCr1.setEditable(false);
+        lblCr1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblCr1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblCr1FocusLost(evt);
+            }
+        });
 
         lblLambda1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         lblLambda1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblLambda1.setText("Lambda");
-        lblLambda1.setEditable(false);
+        lblLambda1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lblLambda1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                lblLambda1FocusLost(evt);
+            }
+        });
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -312,19 +354,9 @@ public class view_prosesahp extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jButton1.setText("Perbandingan Kriteria");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                navigateTo(new view_perbandingankriteria());
-            }
-        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jButton4.setText("Perbandingan Alternatif");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                navigateTo(new view_perbandinganalternatif());
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -447,6 +479,18 @@ public class view_prosesahp extends javax.swing.JPanel {
         hitungHasilAkhir();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void lblCiFocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblCiFocusLost(java.awt.event.FocusEvent evt) {}
+    private void lblCrFocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblCrFocusLost(java.awt.event.FocusEvent evt) {}
+    private void lblLambdaFocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblLambdaFocusLost(java.awt.event.FocusEvent evt) {}
+    private void lblCi1FocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblCi1FocusLost(java.awt.event.FocusEvent evt) {}
+    private void lblCr1FocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblCr1FocusLost(java.awt.event.FocusEvent evt) {}
+    private void lblLambda1FocusGained(java.awt.event.FocusEvent evt) {}
+    private void lblLambda1FocusLost(java.awt.event.FocusEvent evt) {}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -463,7 +507,6 @@ public class view_prosesahp extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField lblCi;
     private javax.swing.JTextField lblCi1;
@@ -472,5 +515,6 @@ public class view_prosesahp extends javax.swing.JPanel {
     private javax.swing.JTextField lblLambda;
     private javax.swing.JTextField lblLambda1;
     private java.awt.Scrollbar scrollbar1;
+    private javax.swing.JTable tablePerbandinganAlternatif;
     // End of variables declaration//GEN-END:variables
 }

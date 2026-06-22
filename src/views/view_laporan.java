@@ -4,6 +4,17 @@
  */
 package views;
 
+import dao.AuditorDAO;
+import dao.KriteriaDAO;
+import dao.PerbandinganDAO;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import models.Auditor;
+import models.Kriteria;
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
+import utils.AHPCalculator;
 import utils.ReportGenerator;
 
 /**
@@ -17,10 +28,100 @@ public class view_laporan extends javax.swing.JPanel {
      */
     public view_laporan() {
         initComponents();
+        btnlaporanhasilahp.setText("Perbandingan Alternatif");
         btnlaporandatakriteria.addActionListener(e -> ReportGenerator.showReport("/reports/report_kriteria.jrxml"));
-        btnlaporanperangkingan.addActionListener(e -> ReportGenerator.showReport("/reports/report_perangkingan.jrxml"));
-        btnlaporanhasilahp.addActionListener(e -> ReportGenerator.showReport("/reports/report_hasilahp.jrxml"));
+        btnlaporanperangkingan.addActionListener(e -> cetakLaporanPerangkingan());
+        btnlaporanhasilahp.addActionListener(e -> cetakLaporanPerbandinganAlternatif());
         btnlaporandataauditor.addActionListener(e -> ReportGenerator.showReport("/reports/report_auditor.jrxml"));
+    }
+
+    private void cetakLaporanPerangkingan() {
+        KriteriaDAO kriteriaDAO = new KriteriaDAO();
+        AuditorDAO auditorDAO = new AuditorDAO();
+        PerbandinganDAO perbandinganDAO = new PerbandinganDAO();
+
+        List<Kriteria> kriteriaList = kriteriaDAO.getAll();
+        List<Auditor> auditorList = auditorDAO.getAll();
+
+        if (kriteriaList.isEmpty() || auditorList.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Data kriteria atau auditor kosong!");
+            return;
+        }
+
+        int nKriteria = kriteriaList.size();
+        int nAlternatif = auditorList.size();
+
+        double[][] matriksKriteria = perbandinganDAO.buildMatriksKriteria(kriteriaList);
+        double[] bobotKriteria = AHPCalculator.hitungBobotPrioritas(matriksKriteria);
+
+        double[][] bobotAlternatif = new double[nKriteria][nAlternatif];
+        for (int k = 0; k < nKriteria; k++) {
+            int idKriteria = kriteriaList.get(k).getIdKriteria();
+            double[][] matriksAlt = perbandinganDAO.buildMatriksAlternatif(idKriteria, auditorList);
+            bobotAlternatif[k] = AHPCalculator.hitungBobotPrioritas(matriksAlt);
+        }
+
+        double[] nilaiAkhir = AHPCalculator.hitungNilaiAkhir(bobotKriteria, bobotAlternatif);
+        int[] rangking = AHPCalculator.getRangking(nilaiAkhir);
+
+        List<Map<String, ?>> dataList = new ArrayList<>();
+        for (int rank = 0; rank < rangking.length; rank++) {
+            int idx = rangking[rank];
+            Map<String, Object> row = new HashMap<>();
+            row.put("ranking", rank + 1);
+            row.put("kode_auditor", auditorList.get(idx).getKodeAuditor());
+            row.put("nama_auditor", auditorList.get(idx).getNamaAuditor());
+            row.put("nilai_akhir", nilaiAkhir[idx]);
+            row.put("persentase", String.format("%.1f%%", nilaiAkhir[idx] * 100));
+            dataList.add(row);
+        }
+
+        JRMapCollectionDataSource dataSource = new JRMapCollectionDataSource(dataList);
+        ReportGenerator.showReportWithDataSource("/reports/report_perangkingan.jrxml", dataSource);
+    }
+
+    private void cetakLaporanPerbandinganAlternatif() {
+        KriteriaDAO kriteriaDAO = new KriteriaDAO();
+        AuditorDAO auditorDAO = new AuditorDAO();
+        PerbandinganDAO perbandinganDAO = new PerbandinganDAO();
+
+        List<Kriteria> kriteriaList = kriteriaDAO.getAll();
+        List<Auditor> auditorList = auditorDAO.getAll();
+
+        if (kriteriaList.isEmpty() || auditorList.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Data kriteria atau auditor kosong!");
+            return;
+        }
+
+        int nKriteria = kriteriaList.size();
+        int nAlternatif = auditorList.size();
+
+        // Hitung bobot prioritas alternatif per kriteria
+        double[][] bobotAlternatif = new double[nKriteria][nAlternatif];
+        for (int k = 0; k < nKriteria; k++) {
+            double[][] matriks = perbandinganDAO.buildMatriksAlternatif(kriteriaList.get(k).getIdKriteria(), auditorList);
+            bobotAlternatif[k] = AHPCalculator.hitungBobotPrioritas(matriks);
+        }
+
+        // Header kolom = nama kriteria
+        Map<String, Object> params = new HashMap<>();
+        for (int k = 0; k < nKriteria && k < 5; k++) {
+            params.put("col" + (k + 1) + "_header", kriteriaList.get(k).getNamaKriteria());
+        }
+
+        // Baris = alternatif, kolom = bobot per kriteria
+        List<Map<String, ?>> dataList = new ArrayList<>();
+        for (int i = 0; i < nAlternatif; i++) {
+            Map<String, Object> row = new HashMap<>();
+            row.put("alternatif", auditorList.get(i).getNamaAuditor());
+            for (int k = 0; k < nKriteria && k < 5; k++) {
+                row.put("col" + (k + 1), String.format("%.4f", bobotAlternatif[k][i]));
+            }
+            dataList.add(row);
+        }
+
+        JRMapCollectionDataSource dataSource = new JRMapCollectionDataSource(dataList);
+        ReportGenerator.showReportWithDataSource("/reports/report_perbandinganAlternatif.jrxml", params, dataSource);
     }
 
     /**
