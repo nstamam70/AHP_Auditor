@@ -6,6 +6,7 @@ package main;
 
 import auth.auth_login;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import views.view_dashboard;
 import views.view_dataauditor;
@@ -505,6 +506,11 @@ public class Main extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-shutdown-25.png"))); // NOI18N
         btnLogout.setText("Keluar");
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnHeaderLayout = new javax.swing.GroupLayout(pnHeader);
         pnHeader.setLayout(pnHeaderLayout);
@@ -757,6 +763,15 @@ public class Main extends javax.swing.JFrame {
             resetColor(sb_dashboard);
         }
     }//GEN-LAST:event_dashboardMouseExited
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+         int close = JOptionPane.showConfirmDialog(null, "Apakah Anda Ingin Logout?","Select Option",JOptionPane.YES_NO_OPTION);
+        if(close==0) {
+            auth_login log = new auth_login();
+            log.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments

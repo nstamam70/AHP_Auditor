@@ -4,6 +4,8 @@
  */
 package views;
 
+import utils.ReportGenerator;
+
 /**
  *
  * @author USER
@@ -15,6 +17,10 @@ public class view_laporan extends javax.swing.JPanel {
      */
     public view_laporan() {
         initComponents();
+        btnlaporandatakriteria.addActionListener(e -> ReportGenerator.showReport("/reports/report_kriteria.jrxml"));
+        btnlaporanperangkingan.addActionListener(e -> ReportGenerator.showReport("/reports/report_perangkingan.jrxml"));
+        btnlaporanhasilahp.addActionListener(e -> ReportGenerator.showReport("/reports/report_hasilahp.jrxml"));
+        btnlaporandataauditor.addActionListener(e -> ReportGenerator.showReport("/reports/report_auditor.jrxml"));
     }
 
     /**
@@ -29,31 +35,36 @@ public class view_laporan extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnlaporandataauditor = new javax.swing.JButton();
+        btnlaporandatakriteria = new javax.swing.JButton();
+        btnlaporanperangkingan = new javax.swing.JButton();
+        btnlaporanhasilahp = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Data Laporan");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton1.setText("Laporan Data Auditor");
+        btnlaporandataauditor.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnlaporandataauditor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnlaporandataauditor.setText("Laporan Data Auditor");
+        btnlaporandataauditor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlaporandataauditorActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton2.setText("Laporan Data Kriteria");
+        btnlaporandatakriteria.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnlaporandatakriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnlaporandatakriteria.setText("Laporan Data Kriteria");
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton3.setText("Perangkingan");
+        btnlaporanperangkingan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnlaporanperangkingan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnlaporanperangkingan.setText("Perangkingan");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton4.setText("Hasil Proses AHP");
+        btnlaporanhasilahp.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnlaporanhasilahp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnlaporanhasilahp.setText("Hasil Proses AHP");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,10 +77,10 @@ public class view_laporan extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlaporanhasilahp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlaporanperangkingan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlaporandatakriteria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnlaporandataauditor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -81,13 +92,13 @@ public class view_laporan extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(139, 139, 139)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnlaporandataauditor, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnlaporandatakriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnlaporanperangkingan, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnlaporanhasilahp, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(177, Short.MAX_VALUE))
         );
 
@@ -103,12 +114,16 @@ public class view_laporan extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnlaporandataauditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlaporandataauditorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnlaporandataauditorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnlaporandataauditor;
+    private javax.swing.JButton btnlaporandatakriteria;
+    private javax.swing.JButton btnlaporanhasilahp;
+    private javax.swing.JButton btnlaporanperangkingan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;

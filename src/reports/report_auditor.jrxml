@@ -34,7 +34,7 @@ ORDER BY
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="32" forecolor="#009900" uuid="ed6055bc-9617-4f85-baf2-fe9421f98f31"/>
 				<textElement textAlignment="Center">
@@ -47,11 +47,18 @@ ORDER BY
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
-				<text><![CDATA[Alam Rezkia Residence, Jl. Kiray, Cimpaeun, Kec. Tapos, Kota Depok, Jawa Barat 16459]]></text>
+				<text><![CDATA[Eighty Eight@Kasablanka Tower A, Lantai 26 Unit D.Jl. Casablanca Raya 88, Kel. Menteng Dalam, Kec. Tebet, Kota Adm. Jakarta Selatan, Provinsi DKI Jakarta]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="78" width="554" height="1" uuid="8c1c72d2-2d1f-41a5-9446-e5614c625cbe"/>
+				<reportElement x="1" y="92" width="554" height="1" uuid="8c1c72d2-2d1f-41a5-9446-e5614c625cbe"/>
 			</line>
+			<staticText>
+				<reportElement x="129" y="73" width="300" height="20" uuid="a3fa0137-f38a-4068-aad3-f4aeebfa8f12"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Telephone : +62 21 89083129 | Email : info.amscertification.co.id]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

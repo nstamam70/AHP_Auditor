@@ -44,10 +44,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButton4" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnlaporanhasilahp" max="32767" attributes="0"/>
+                      <Component id="btnlaporanperangkingan" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnlaporandatakriteria" alignment="1" max="32767" attributes="0"/>
+                      <Component id="btnlaporandataauditor" alignment="1" max="32767" attributes="0"/>
                       <Component id="jSeparator1" pref="1149" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -62,13 +62,13 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="139" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="btnlaporandataauditor" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="btnlaporandatakriteria" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="btnlaporanperangkingan" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="btnlaporanhasilahp" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace pref="177" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -85,7 +85,7 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnlaporandataauditor">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Semibold" size="18" style="0"/>
@@ -95,8 +95,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Laporan Data Auditor"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnlaporandataauditorActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnlaporandatakriteria">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Semibold" size="18" style="0"/>
@@ -107,7 +110,7 @@
             <Property name="text" type="java.lang.String" value="Laporan Data Kriteria"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnlaporanperangkingan">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Semibold" size="18" style="0"/>
@@ -118,7 +121,7 @@
             <Property name="text" type="java.lang.String" value="Perangkingan"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="btnlaporanhasilahp">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI Semibold" size="18" style="0"/>
