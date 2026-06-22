@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca45f457-478f-4d06-9b55-45814679f024">
 	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="10"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -47,7 +47,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
-				<text><![CDATA[Alam Rezkia Residence, Jl. Kiray, Cimpaeun, Kec. Tapos, Kota Depok, Jawa Barat 16459]]></text>
+				<text><![CDATA[Eighty Eight@Kasablanka Tower A, Lantai 26 Unit D.Jl. Casablanca Raya 88, Kel. Menteng Dalam, Kec. Tebet, Kota Adm. Jakarta Selatan, Provinsi DKI Jakarta]]></text>
 			</staticText>
 			<line>
 				<reportElement x="1" y="93" width="554" height="1" uuid="8c1c72d2-2d1f-41a5-9446-e5614c625cbe"/>
@@ -161,18 +161,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="25" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="35" height="25" uuid="e3e8dff7-e633-4194-90c0-f317f34521cf"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="25" splitType="Stretch"/>
 	</detail>
 	<columnFooter>
 		<band height="118" splitType="Stretch">

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca45f457-478f-4d06-9b55-45814679f024">
 	<property name="ireport.zoom" value="1.9487171000000014"/>
 	<property name="ireport.x" value="10"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="144"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -137,14 +137,24 @@
 	<detail>
 		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="60" height="25" uuid="1c0b5093-a881-4569-a717-9a95d03757a9"/>
-				<box>
-					<pen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ranking}]]></textFieldExpression>
+				<reportElement x="60" y="0" width="90" height="25" uuid="241670b3-323c-4a45-be9d-c2d47a5a34a6"/>
+				<textFieldExpression><![CDATA[$$F{}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="160" height="25" uuid="cd4af39c-af34-4242-93e6-183fb3b9e1a9"/>
+				<textFieldExpression><![CDATA[$$F{}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="100" height="25" uuid="56fd650f-7acd-45fd-bc1f-49e135b81402"/>
+				<textFieldExpression><![CDATA[$$F{}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="144" height="25" uuid="49dedf1e-a68e-44ac-95c5-32d7fd349554"/>
+				<textFieldExpression><![CDATA[$$F{}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="59" height="25" uuid="93f7c26c-1e7a-4874-8694-253ac9af5e56"/>
+				<textFieldExpression><![CDATA[$$F{}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
